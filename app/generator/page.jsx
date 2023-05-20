@@ -6,6 +6,9 @@ import PDFResume from '../components/PDFResume';
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import HeaderSection from '../components/header/HeaderSection';
 import Button from '../components/Button';
+import PastExperiences from '../components/steps/PastExperiences';
+import Education from '../components/steps/Education';
+import Skills from '../components/Skills';
 
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -15,7 +18,7 @@ export default function Home() {
   const pdfRef = useRef();
 
   const handleNext = (data) => {
-    setCVData((prevData) => ({ ...prevData, ...data }));
+    setCVData((prevData) => ({ ...prevData, ...data, selectedExperiences }));
     setStep((prevStep) => prevStep + 1);
   };
 
@@ -27,12 +30,18 @@ export default function Home() {
         return <NameEmail onNext={handleNext} />;
       case 2:
         return <WebsitePortfolio onPrev={handlePrev} onNext={handleNext} />;
+      case 3:
+        return <PastExperiences onPrev={handlePrev} onNext={handleNext} />
+      case 4:
+        return <Education onPrev={handlePrev} onNext={handleNext} />
+      case 5:
+        return <Skills onPrev={handlePrev} onNext={handleNext} />
       default:
         return null;
     }
   };
 
-  const { firstName, lastName, email, website, portfolio } = cvData;
+  const { firstName, lastName, phoneNumber, email, website, portfolio, selectedExperiences } = cvData;
 
   const handleExportPDF = () => {
     setShowPDF(true);
@@ -43,14 +52,19 @@ export default function Home() {
       <HeaderSection />
       <div>
         <h1>CV Generator</h1>
+        <h3>Step {step}</h3>
         {renderFormStep()}
         {step > 1 && (
           <div>
             <p>First name: {firstName}</p>
             <p>Last name: {lastName}</p>
+            <p>Phone number: {phoneNumber}</p>
             <p>Email:{email}</p>
             {step > 2 && website && <p>Website: {website}</p>}
             {step > 2 && portfolio && <p>Portfolio: {portfolio}</p>}
+            {selectedExperiences && selectedExperiences.length > 0 && (
+              <p>Past Experiences: {selectedExperiences.join(', ')}</p>
+            )}
             <button
               className='px-3 py-2 transition-colors duration-200 bg-teal-400 rounded hover:bg-teal-500'
               onClick={handleExportPDF}

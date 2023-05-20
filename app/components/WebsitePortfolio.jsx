@@ -1,19 +1,16 @@
-"use client"
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Step } from "./Components";
 import Button from "./Button";
 
 const WebsitePortfolio = ({ onNext, onPrev }) => {
-  const [website, setWebsite] = useState("");
-  const [portfolio, setPortfolio] = useState("");
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onNext({ website, portfolio });
+  const onSubmit = (data) => {
+    onNext(data);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="container px-4 py-8 mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="container px-4 py-8 mx-auto">
       <Step>Step 2: Website, Portfolio</Step>
       <div className="mb-6">
         <label htmlFor="website" className="block mb-2 font-bold text-gray-700">
@@ -22,8 +19,7 @@ const WebsitePortfolio = ({ onNext, onPrev }) => {
         <input
           type="text"
           id="website"
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
+          {...register("website")}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="Enter your website URL"
         />
@@ -36,8 +32,7 @@ const WebsitePortfolio = ({ onNext, onPrev }) => {
         <input
           type="text"
           id="portfolio"
-          value={portfolio}
-          onChange={(e) => setPortfolio(e.target.value)}
+          {...register("portfolio")}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="Enter your portfolio URL"
         />

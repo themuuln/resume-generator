@@ -46,12 +46,9 @@ export default function Home() {
         {renderFormStep()}
         {step > 1 && (
           <div>
-            <h2>CV</h2>
             <p>First name: {firstName}</p>
             <p>Last name: {lastName}</p>
-            <p>
-              Email: <span className='text-red-500 bg-slate-600'>{email}</span>
-            </p>
+            <p>Email:{email}</p>
             {step > 2 && website && <p>Website: {website}</p>}
             {step > 2 && portfolio && <p>Portfolio: {portfolio}</p>}
             <button
@@ -75,7 +72,7 @@ export default function Home() {
                   portfolio={portfolio}
                 />
               }
-              fileName='resume.pdf'
+              fileName={`${firstName}_${lastName}.pdf`}
             >
               {({ blob, url, loading, error }) =>
                 loading ? 'Loading document...' : 'Download PDF'

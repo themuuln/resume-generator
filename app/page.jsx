@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Button from "./components/Button";
 import { FaGithub } from "react-icons/fa"
 
 export default function Home() {
@@ -12,13 +11,13 @@ export default function Home() {
         Welcome to our CV/Resume Generator! With our easy-to-use tool, you can create a professional and personalized CV or resume in just a few steps. Stand out from the crowd and land your dream job.
       </p>
       <div className="flex flex-col gap-4 md:flex-row">
-        <Button>
+        <button className='px-3 py-2 text-lg font-semibold transition-colors duration-200 bg-teal-400 rounded hover:bg-teal-500'>
           <Link href="/generator">
             Generate Now
           </Link>
-        </Button>
+        </button>
         <Link href={'https://github.com/themuuln/resume-generator'} target="_blank" rel="noopener noreferrer">
-          <button className='px-3 py-2 text-white transition-colors duration-200 inline-flex items-center gap-2 rounded hover:bg-[#3f444e] bg-[#2c313d]'>
+          <button className='px-3 py-2 text-white text-lg transition-colors duration-200 inline-flex items-center gap-2 rounded hover:bg-[#3f444e] bg-[#2c313d]'>
             <FaGithub />
             GitHub
           </button>

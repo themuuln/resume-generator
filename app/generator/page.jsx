@@ -49,51 +49,56 @@ export default function Home() {
 
   return (
     <>
-      <HeaderSection />
-      <div>
-        <h1>CV Generator</h1>
-        <h3>Step {step}</h3>
-        {renderFormStep()}
-        {step > 1 && (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="container">
           <div>
-            <p>First name: {firstName}</p>
-            <p>Last name: {lastName}</p>
-            <p>Phone number: {phoneNumber}</p>
-            <p>Email:{email}</p>
-            {step > 2 && website && <p>Website: {website}</p>}
-            {step > 2 && portfolio && <p>Portfolio: {portfolio}</p>}
-            {selectedExperiences && selectedExperiences.length > 0 && (
-              <p>Past Experiences: {selectedExperiences.join(', ')}</p>
+            <h1 className='text-3xl font-semibold'>CV Generator</h1>
+            <h3>Step {step}:</h3>
+            {renderFormStep()}
+            {step > 1 && (
+              <div className="mt-8">
+                <p className="mb-2">First name: {firstName}</p>
+                <p className="mb-2">Last name: {lastName}</p>
+                <p className="mb-2">Phone number: {phoneNumber}</p>
+                <p className="mb-2">Email: {email}</p>
+                {step > 2 && website && <p className="mb-2">Website: {website}</p>}
+                {step > 2 && portfolio && <p className="mb-2">Portfolio: {portfolio}</p>}
+                {selectedExperiences && selectedExperiences.length > 0 && (
+                  <p className="mb-2">Past Experiences: {selectedExperiences.join(', ')}</p>
+                )}
+                <button
+                  className="px-4 py-2 mt-4 text-white transition-colors duration-200 bg-teal-400 rounded hover:bg-teal-500"
+                  onClick={handleExportPDF}
+                >
+                  Export as PDF
+                </button>
+              </div>
             )}
-            <button
-              className='px-3 py-2 transition-colors duration-200 bg-teal-400 rounded hover:bg-teal-500'
-              onClick={handleExportPDF}
-            >
-              Export as PDF
-            </button>
+            {showPDF && (
+              <div className="mt-8">
+                <Button>
+                  <PDFDownloadLink
+                    document={
+                      <PDFResume
+                        ref={pdfRef}
+                        firstName={firstName}
+                        lastName={lastName}
+                        email={email}
+                        website={website}
+                        portfolio={portfolio}
+                      />
+                    }
+                    fileName={`${firstName}_${lastName}.pdf`}
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading ? 'Loading document...' : 'Download PDF'
+                    }
+                  </PDFDownloadLink>
+                </Button>
+              </div>
+            )}
           </div>
-        )}
-        {showPDF && (
-          <Button>
-            <PDFDownloadLink
-              document={
-                <PDFResume
-                  ref={pdfRef}
-                  firstName={firstName}
-                  lastName={lastName}
-                  email={email}
-                  website={website}
-                  portfolio={portfolio}
-                />
-              }
-              fileName={`${firstName}_${lastName}.pdf`}
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Download PDF'
-              }
-            </PDFDownloadLink>
-          </Button>
-        )}
+        </div>
       </div>
     </>
   );

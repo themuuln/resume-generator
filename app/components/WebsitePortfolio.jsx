@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Step } from "./Components";
 import Button from "./Button";
@@ -9,8 +10,23 @@ const WebsitePortfolio = ({ onNext, onPrev }) => {
     onNext(data);
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    },
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="container px-4 py-8 mx-auto">
+    <motion.form
+      onSubmit={handleSubmit(onSubmit)}
+      className="container px-4 py-8 mx-auto"
+      variants={formVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <Step>Step 2: Website, Portfolio</Step>
       <div className="mb-6">
         <label htmlFor="website" className="block mb-2 font-bold text-gray-700">
@@ -38,15 +54,20 @@ const WebsitePortfolio = ({ onNext, onPrev }) => {
         />
       </div>
 
-      <div className="flex justify-between">
-        <Button type="button" onClick={onPrev} className="px-4 py-2 text-white bg-gray-500 rounded-md">
+      <motion.div
+        className="flex justify-between"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <button type="button" onClick={onPrev} className="px-4 py-2 text-white bg-gray-500 rounded-md">
           Previous
-        </Button>
+        </button>
         <Button type="submit" className="px-4 py-2 text-white bg-green-500 rounded-md">
           Next
         </Button>
-      </div>
-    </form>
+      </motion.div>
+    </motion.form>
   );
 };
 

@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Step } from "./Components"
+import Button from "./Button"
 
 const WebsitePortfolio = ({ onNext, onPrev }) => {
   const [website, setWebsite] = useState('')
@@ -29,8 +30,8 @@ const WebsitePortfolio = ({ onNext, onPrev }) => {
         onChange={(e) => setPortfolio(e.target.value)}
       />
 
-      <button type="button" onClick={onPrev}>Previous</button>
-      <button type="submit">Next</button>
+      <Button type="button" onClick={onPrev}>Previous</Button>
+      <Button type="submit">Next</Button>
     </form>
   )
 }

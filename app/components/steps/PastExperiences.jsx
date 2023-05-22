@@ -2,21 +2,26 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { OutlineButton } from '../OutlineButton';
 
-const PastExperiences = ({ onNext, onPrev }) => {
+const PastExperiences = ({ onNext, onPrev, handleExportPDF }) => {
   const [selectedExperiences, setSelectedExperiences] = useState([]);
 
   const handleExperienceClick = (experience) => {
-    if (selectedExperiences.includes(experience)) {
-      setSelectedExperiences(selectedExperiences.filter((exp) => exp !== experience));
-    } else {
-      setSelectedExperiences([...selectedExperiences, experience]);
-    }
+    setSelectedExperiences((prevExperiences) => {
+      if (prevExperiences.includes(experience)) {
+        return prevExperiences.filter((exp) => exp !== experience);
+      } else {
+        return [...prevExperiences, experience];
+      }
+    });
   };
+  console.log(selectedExperiences)
 
   return (
     <div className="text-center">
       <h1 className="mb-4 text-3xl font-bold">Have you done any of these?</h1>
-      <p className="mb-6 text-gray-600">Pick 1 or more. These can count as relevant experience for your resume.</p>
+      <p className="mb-6 text-gray-600">
+        Pick 1 or more. These can count as relevant experience for your resume.
+      </p>
       <div className="flex flex-wrap justify-center gap-4 mb-1">
         <OutlineButton
           onClick={() => handleExperienceClick('Internship')}
@@ -43,7 +48,9 @@ const PastExperiences = ({ onNext, onPrev }) => {
           Tutor
         </OutlineButton>
       </div>
-      <button onClick={onNext} className="mt-2 mb-5 text-sm text-gray-500 hover:underline">No Experience</button>
+      <button onClick={onNext} className="mt-2 mb-5 text-sm text-gray-500 hover:underline">
+        No Experience (Continue)
+      </button>
       <div className="flex justify-center space-x-4">
         <motion.button
           type="button"
@@ -64,9 +71,16 @@ const PastExperiences = ({ onNext, onPrev }) => {
           Next
         </motion.button>
       </div>
-      <p className="mt-6 text-gray-600">
-        Selected experiences: {selectedExperiences.length > 0 ? selectedExperiences.join(', ') : 'None'}
-      </p>
+      {selectedExperiences.length > 0 && (
+        <div className="mt-8">
+          <p className="mb-2">Selected experiences:</p>
+          {selectedExperiences.map((experience) => (
+            <p key={experience} className="mb-2">
+              {experience}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

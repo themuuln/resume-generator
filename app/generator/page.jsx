@@ -3,8 +3,7 @@ import React, { useState, useRef } from 'react';
 import NameEmail from '../components/NameEmail';
 import WebsitePortfolio from '../components/WebsitePortfolio';
 import PDFResume from '../components/PDFResume';
-import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
-import HeaderSection from '../components/header/HeaderSection';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import Button from '../components/Button';
 import PastExperiences from '../components/steps/PastExperiences';
 import Education from '../components/steps/Education';
@@ -61,11 +60,8 @@ export default function Home() {
                 <p className="mb-2">Last name: {lastName}</p>
                 <p className="mb-2">Phone number: {phoneNumber}</p>
                 <p className="mb-2">Email: {email}</p>
-                {step > 2 && website && <p className="mb-2">Website: {website}</p>}
-                {step > 2 && portfolio && <p className="mb-2">Portfolio: {portfolio}</p>}
-                {selectedExperiences && selectedExperiences.length > 0 && (
-                  <p className="mb-2">Past Experiences: {selectedExperiences.join(', ')}</p>
-                )}
+                {website && <p className="mb-2">Website: {website}</p>}
+                {portfolio && <p className="mb-2">Portfolio: {portfolio}</p>}
                 <button
                   className="px-4 py-2 mt-4 text-white transition-colors duration-200 bg-teal-400 rounded hover:bg-teal-500"
                   onClick={handleExportPDF}

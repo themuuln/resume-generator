@@ -2,7 +2,7 @@ import { OutlineButton } from "../OutlineButton";
 
 const Education = ({ onNext, onPrev }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="mb-4 text-4xl font-bold">What best describes your level of education?</h1>
       <p className="mb-8 text-lg text-gray-600">Select the best option and we&apos;ll help you structure your education section.</p>
       <div className="flex flex-col items-center space-y-4">
